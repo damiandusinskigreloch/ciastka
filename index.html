@@ -1,0 +1,200 @@
+<!-- Pierwsza stopka -->
+
+<head>
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+    <div id="cookie-banner">
+        <h4>Pliki Cookies</h4>
+        <p>Pragniemy poinformować, że na naszej stronie używamy plików cookies, dzięki którym możemy optymalizować działanie serwisu. Pliki zbierają informacje o Twoich preferencjach i odwiedzinach naszej strony. Kliknięcie „Akceptuj wszystko” oznacza, że
+            wyrażasz zgodę na używanie WSZYSTKICH plików cookies. Możesz wybrać też opcję „Dostosuj ciasteczka”, która umożliwi dopasowanie zgód.
+            <a class="btn-pp" href="../polityka_prywatnosci.html">Polityka prywatności</a></p>
+
+        <div class="btn-box">
+            <button class="btn-cookies btn-cookies-special" id="cookie-settings">Dostosuj ciasteczka</button>
+            <button class="btn-cookies" id="cookie-accept-all">Akceptuj wszystko</button>
+        </div>
+    </div>
+
+    <div id="cookie-customize-modal">
+        <div id="modal-content">
+            <h2 class="cookie-customize-modal-head">Omówienie używanych plików cookies</h2>
+            <p>Nasza witryna korzysta z pików cookies aby lepiej działa. Dodatkowo, do celów analitycznych oraz reklamowych, używamy pliki firm </p>
+            <div class="modal-cookie-box">
+                <button class="toggle-cookie-btn" id="toggle-cookie-description">+</button>
+                <label for="customize-cookie ">
+            Podstawowe ciasteczka
+            <input type="checkbox" id="customize-cookie"> 
+        </label>
+            </div>
+            <div class="modal-description" id="cookie-description">
+                <p> Podstawowe ciasteczka, zwane też plikami cookies, to małe fragmenty danych przechowywane na Twoim urządzeniu podczas korzystania z naszej strony internetowej. Są to proste pliki tekstowe, które mają istotne zastosowania:</p>
+                <ul>
+                    <li> Zachowanie preferencji: Zapamiętują Twoje ustawienia, takie jak język strony, co pozwala dostosować witrynę do Twoich potrzeb.
+                    </li>
+                    <li> Śledzenie sesji: Monitorują Twoją aktywność na stronie, co pozwala na płynne przemieszczanie się między stronami.
+                    </li>
+                    <li> Analiza statystyk: Pomagają nam zbierać anonimowe dane statystyczne na temat korzystania z witryny.
+                    </li>
+
+                </ul>
+
+                Podstawowe ciasteczka nie przechowują danych osobowych i są bezpieczne w użyciu. Zapoznaj się z naszą <a href="../polityka_prywatnosci.html"> polityką prywatności</a> w razie pytań na ten temat.
+            </div>
+            <br>
+            <div class="modal-cookie-box">
+                <button class="toggle-cookie-btn" id="toggle-analytics-ads-description">+</button>
+                <label for="customize-analytics-ads">
+            Analityczne | Reklamowe
+            <input type="checkbox" id="customize-analytics-ads"> 
+        </label>
+            </div>
+            <div class="modal-description" id="analytics-ads-description">
+                <p>Analityczne pliki cookie służą do zrozumienia, w jaki sposób odwiedzający wchodzą w interakcję ze stroną internetową. Te pliki cookie pomagają w dostarczaniu informacji na temat wskaźników liczby odwiedzających, współczynnika odrzuceń,
+                    źródła ruchu itp.</p>
+                <p>Reklamowe pliki cookie służą do dostarczania odwiedzającym odpowiednich reklam i kampanii marketingowych. Te pliki cookie śledzą odwiedzających na stronach internetowych i zbierają informacje w celu dostarczania dostosowanych reklam.
+                    <a
+                        target="_blank" href="https://policies.google.com/technologies/partner-sites">Polityka prywatności Google Analytics.</a>
+                </p>
+
+
+            </div>
+            <br>
+            <button class="btn-cookies" id="save-custom-settings">Zapisz ustawienia</button>
+            <button id="close-modal">X</button>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    function toggleDescriptionButton(buttonId, descriptionId) {
+        const description = document.getElementById(descriptionId);
+        const button = document.getElementById(buttonId);
+
+        if (description.style.display === 'none') {
+            description.style.display = 'block';
+            button.textContent = '-';
+        } else {
+            description.style.display = 'none';
+            button.textContent = '+';
+        }
+    }
+
+    // Obsługa przycisku "Pokaż/ukryj opis" dla "Podstawowe ciasteczka"
+    document.getElementById('toggle-cookie-description').addEventListener('click', function() {
+        toggleDescriptionButton('toggle-cookie-description', 'cookie-description');
+    });
+
+    // Obsługa przycisku "Pokaż/ukryj opis" dla "Analityczne | Reklamowe"
+    document.getElementById('toggle-analytics-ads-description').addEventListener('click', function() {
+        toggleDescriptionButton('toggle-analytics-ads-description', 'analytics-ads-description');
+    });
+
+
+    // Funkcja do ustawiania ciasteczek zgodnie z wyborem użytkownika
+    function setCookieConsent(cookieName, consent) {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() + 1); // Ustal ważność ciasteczek na rok
+        const cookieValue = consent ? "true" : "false";
+        document.cookie = `${cookieName}=${cookieValue}; expires=${date.toUTCString()}; path=/`;
+    }
+
+    // Funkcja do odczytywania ciasteczek
+    function getCookieValue(cookieName) {
+        const name = `${cookieName}=`;
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.indexOf(name) === 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+    // Obsługa przycisku "Akceptuj wszystko"
+    document.getElementById('cookie-accept-all').addEventListener('click', function() {
+        setCookieConsent('cookieConsent', true);
+        setCookieConsent('cookieAnalytics', true);
+        setCookieConsent('cookieAds', true);
+        hideCookieBanner()
+    });
+
+    // Funkcja do ukrywania banera z informacją o ciasteczkach
+    function hideCookieBanner() {
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+
+    // Sprawdź, czy użytkownik wcześniej wyraził zgodę na ciasteczka i ukryj banner w razie potrzeby
+    const cookieConsent = getCookieValue('cookieConsent');
+    if ((cookieConsent === 'true') || (cookieConsent === 'false')) {
+        hideCookieBanner();
+    }
+
+    // Funkcja do ustawiania ciasteczek zgodnie z wyborem użytkownika
+    function setCookieConsent(cookieName, consent) {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() + 1); // Ustal ważność ciasteczek na rok
+        const cookieValue = consent ? "true" : "false";
+        document.cookie = `${cookieName}=${cookieValue}; expires=${date.toUTCString()}; path=/`;
+    }
+
+    // Funkcja do odczytywania ciasteczek
+    function getCookieValue(cookieName) {
+        const name = `${cookieName}=`;
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.indexOf(name) === 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+    // Funkcja do zapisywania ustawień ciasteczek
+    function saveCookieSettings() {
+        const customizeCookie = document.getElementById('customize-cookie').checked;
+        const customizeAnalitiscAndAds = document.getElementById('customize-analytics-ads').checked;
+
+        // Zapisz flagi ciasteczek na podstawie wyboru użytkownika
+        setCookieConsent('cookieConsent', customizeCookie);
+        setCookieConsent('cookieAnalytics', customizeAnalitiscAndAds);
+        setCookieConsent('cookieAds', customizeAnalitiscAndAds);
+
+        // Zamknij modal
+        closeCookieCustomizeModal();
+    }
+
+    // Funkcja do pokazywania modalu
+    function showCookieCustomizeModal() {
+        document.getElementById('cookie-customize-modal').style.display = 'block';
+    }
+
+    // Funkcja do zamykania modalu
+    function closeCookieCustomizeModal() {
+        document.getElementById('cookie-customize-modal').style.display = 'none';
+    }
+
+    // Obsługa przycisku "Dostosuj"
+    document.getElementById('cookie-settings').addEventListener('click', function() {
+        showCookieCustomizeModal();
+    });
+
+    // Obsługa przycisku "Zapisz ustawienia" w modalu
+    document.getElementById('save-custom-settings').addEventListener('click', function() {
+        saveCookieSettings();
+        hideCookieBanner()
+    });
+
+    // Obsługa przycisku "Zamknij" w modalu
+    document.getElementById('close-modal').addEventListener('click', function() {
+        closeCookieCustomizeModal();
+    });
+</script>

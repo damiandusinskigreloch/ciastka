@@ -121,6 +121,7 @@ a {
     font-size: 20px;
     background-color: transparent;
     cursor: pointer;
+    color: red;
 }
 
 .modal-cookie-box {
@@ -152,6 +153,7 @@ input[type=checkbox] {
     font-size: 25px;
     line-height: 1;
     cursor: pointer;
+    color: #263672;
 }
 
 #cookie-description,
@@ -174,4 +176,18 @@ input[type=checkbox] {
 
 .modal-description ul li:last-child {
     margin-bottom: 0;
+}
+
+
+/* polityka */
+
+.p-box {
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.p-box>div {
+    margin-top: 15px;
+    ;
 }

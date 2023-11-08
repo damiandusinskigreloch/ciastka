@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -62,6 +64,15 @@ a {
 
 /* modal */
 
+.cookie-customize-modal-head {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.cookie-customize-modal-main-text {
+    margin-bottom: 10px;
+}
+
 #cookie-customize-modal {
     display: none;
     position: fixed;
@@ -92,6 +103,16 @@ a {
     }
 }
 
+@media (min-width:1040px) {
+    .cookie-customize-modal-head {
+        font-size: 24px;
+    }
+    #modal-content {
+        max-height: 600px;
+        width: 70%;
+    }
+}
+
 #close-modal {
     position: absolute;
     top: 20px;
@@ -108,7 +129,6 @@ a {
     justify-content: space-between;
     background-color: #eee;
     padding: 0 10px;
-    margin-top: 10px;
 }
 
 input[type=checkbox] {

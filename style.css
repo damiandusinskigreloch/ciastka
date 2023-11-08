@@ -83,11 +83,13 @@ a {
     font-size: 14px;
     overflow-y: auto;
     width: 90%;
-    max-height: 300px;
+    max-height: 350px;
 }
 
-.cookie-customize-modal-head {
-    margin: 20px 0;
+@media (orientation: landscape) {
+    #modal-content {
+        max-height: 300px;
+    }
 }
 
 #close-modal {
